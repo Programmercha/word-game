@@ -26,7 +26,6 @@ const changeWord = () => {
 };
 
 
-
 inputEl.addEventListener("input", () => {
   const userWord = inputEl.value;
 
