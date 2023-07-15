@@ -1,63 +1,72 @@
-const random_input = document.querySelector("#random-input");
-const inputEl = document.querySelector("#user-word");
-const score = document.querySelector("#score");
-const timeEl = document.querySelector("#time");
-const modal = document.getElementById("openModal");
-const btn = document.getElementById("btn");
-const ball = document.getElementById("ball");
+const randomWorldEl = document.getElementById("random-word");
+const inputEl = document.getElementById("user-word");
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const userModalScore = document.getElementById("user-modal-score");
+const modal = document.querySelector(".modal");
+const resetButton = document.getElementById("reset-button");
+const formEl = document.getElementById('user-info')
+const modalUSerInfo = document.querySelector('.modal-user-info')
+const userNameTitle = document.getElementById('user-name-title')
+const newUser = document.getElementById('user-name')
 
-// input Focus
-function realod() {
-  inputEl.focus();
 
-  let word;
-  let userTime = 10;
-  let userScore = 0;
+// input focus
+inputEl.focus();
 
-  const changeword = () => {
-    const a = Math.floor(Math.random() * (words.length - 1)) + 1;
-    word = words[a];
-    random_input.innerHTML = `${word}`;
-  };
+let randomWorld;
+let userScore = 0;
+let userTime = 10;
+let userName;
 
-  changeword();
+const changeWord = () => {
+  const randomNumber = Math.trunc(Math.random() * words.length);
+  randomWorld = words[randomNumber];
+  randomWorldEl.textContent = randomWorld;
+};
 
-  inputEl.addEventListener("input", () => {
-    const userword = inputEl.value;
-    if (userword == word) {
-      changeword();
-      inputEl.value = "";
-      userScore += 1;
-      userTime += 3;
-      score.textContent = `${userScore}`;
-    }
-  });
 
+
+inputEl.addEventListener("input", () => {
+  const userWord = inputEl.value;
+
+  if (userWord == randomWorld) {
+    changeWord();
+    userScore++;
+    userTime += 3;
+    scoreEl.textContent = userScore;
+    inputEl.value = "";
+  }
+});
+
+function intervalFunction() {
   const timeInterval = setInterval(() => {
     if (userTime > 0) {
       userTime--;
       timeEl.textContent = `${userTime}s`;
     } else {
-      ball.textContent = `${userScore}`;
-      openModal();
       clearInterval(timeInterval);
+      userNameTitle.textContent = userName
+      modal.classList.remove("hidden");
     }
   }, 1000);
 }
 
-realod();
-btn.addEventListener("click", () => {
-  closeModal();
+resetButton.addEventListener("click", () => {
   userScore = 0;
-  inputEl.value = "";
-  score.textContent = `${userScore}`;
-  realod();
+  userTime = 10;
+  changeWord();
+  timeEl.textContent = "10s";
+  scoreEl.textContent = '0  '
+  modal.classList.add("hidden");
+  intervalFunction()
 });
 
-function openModal() {
-  modal.style.display = "block";
-}
 
-function closeModal() {
-  modal.style.display = "none";
-}
+formEl.addEventListener('submit', (e) => {
+  e.preventDefault()
+  intervalFunction()
+  changeWord();
+  userName = newUser.value
+  modalUSerInfo.classList.add('hidden')
+})

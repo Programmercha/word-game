@@ -2,30 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.3-dars</title>
     <link rel="stylesheet" href="main.css" />
-    <title>13.07.2023</title>
   </head>
   <body>
     <div class="container">
-      <h1 id="random-input">Tez yozib ulgurib qoling</h1>
-      <div class="input">
+      <h1 id="random-word">Awesome</h1>
+      <div class="input-container">
         <input id="user-word" type="text" />
-        <div class="input-value">
-          <h1 class="score">Score: <span id="score">0</span></h1>
-          <h1 class="time">Time: <span id="time">10s</span></h1>
-        </div>
+      </div>
+
+      <div class="score-container">
+        <h3>Score: <span id="score">0</span></h3>
+        <h3>Time: <span id="time">10s</span></h3>
       </div>
     </div>
 
-    <div id="openModal" class="modal">
-      <div class="modal-content">
-        <p class="text">Siz toplagan ball: <span id="ball">0</span></p>
-        <div id="btn">restart</div>
-      </div>
+    <div class="modal hidden">
+      <h3 id="user-name-title"></h3>
+      <button id="reset-button">Reset</button>
     </div>
 
+    <div class="modal-user-info">
+      <form id="user-info">
+        <input id="user-name" type="text" />
+        <button>Submit</button>
+      </form>
+    </div>
+
+    <!-- SCRIPT -->
     <script src="words.js"></script>
     <script src="app.js"></script>
   </body>
